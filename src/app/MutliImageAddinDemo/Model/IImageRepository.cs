@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using Jason.Down.Blog.MutliImageAddinDemo.Collections;
 
 namespace Jason.Down.Blog.MutliImageAddinDemo.Model
 {
-    interface IImageRepository
+    public interface IImageRepository
     {
         /// <summary>
         /// Occurs when a request for item images is made.
