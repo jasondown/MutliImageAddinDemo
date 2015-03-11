@@ -68,18 +68,15 @@
             <ColumnDefinition Width="40" />
         </Grid.ColumnDefinitions>
         <Border Grid.Row="0"
+                Grid.Column="0"
                 Grid.ColumnSpan="3"
                 Margin="5"
-                BorderBrush="Black"
                 BorderThickness="0">
-            <Image Margin="0"
-                   Source="{Binding Path=MainImageSource}"
-                   Stretch="Uniform" />
+            <Image Source="{Binding Path=MainImageSource}" Stretch="Uniform" />
         </Border>
         <Border Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
-                Margin="0,0,0,0"
                 BorderBrush="{x:Static SystemColors.ScrollBarBrush}"
                 BorderThickness="1"
                 CornerRadius="2" />

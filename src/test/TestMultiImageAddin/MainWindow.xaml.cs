@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Jason.Down.Blog.MutliImageAddinDemo.Model;
 using Jason.Down.Blog.MutliImageAddinDemo.ViewModel;
 using Image = System.Windows.Controls.Image;
@@ -12,7 +10,7 @@ namespace TestMultiImageAddin
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
