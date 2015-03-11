@@ -48,7 +48,7 @@ namespace Jason.Down.Blog.MutliImageAddinDemo.Model
         /// <param name="images">The images.</param>
         public void SetImages(IEnumerable<Image> images)
         {
-            _images.AddRange(images);
+            _images = new SmartObservableCollection<Image>(images);
         }
     }
 }
