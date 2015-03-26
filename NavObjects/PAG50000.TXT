@@ -2,13 +2,14 @@ OBJECT Page 50000 MultiImage Factbox
 {
   OBJECT-PROPERTIES
   {
-    Date=25/03/15;
-    Time=10:52:16 PM;
+    Date=26/03/15;
+    Time=[ 1:04:44 AM];
     Modified=Yes;
     Version List=Jason.Down.Blog;
   }
   PROPERTIES
   {
+    PageType=CardPart;
   }
   CONTROLS
   {
