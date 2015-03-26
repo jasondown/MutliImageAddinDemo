@@ -1,0 +1,35 @@
+OBJECT Page 50000 MultiImage Factbox
+{
+  OBJECT-PROPERTIES
+  {
+    Date=25/03/15;
+    Time=10:52:16 PM;
+    Modified=Yes;
+    Version List=Jason.Down.Blog;
+  }
+  PROPERTIES
+  {
+  }
+  CONTROLS
+  {
+    { 1000000000;;Container;
+                Name=ContentArea;
+                ContainerType=ContentArea }
+
+    { 1000000001;1;Field  ;
+                Name=MultiImageControl;
+                ControlAddIn=[Jason.Down.Blog.MultiImageAddinDemo.Controls.MultiImageAddinHostControl;PublicKeyToken=cfeb9f2c0b3be8fb] }
+
+  }
+  CODE
+  {
+
+    EVENT MultiImageControl@-1000000001::RequestImages@1(sender@1000000001 : Variant;e@1000000000 : DotNet "'Jason.Down.Blog.MutliImageAddinDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cfeb9f2c0b3be8fb'.Jason.Down.Blog.MutliImageAddinDemo.Model.ImageRequestEventArgs");
+    BEGIN
+    END;
+
+    BEGIN
+    END.
+  }
+}
+
