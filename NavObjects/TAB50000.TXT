@@ -1,0 +1,32 @@
+OBJECT Table 50000 Image
+{
+  OBJECT-PROPERTIES
+  {
+    Date=09/04/15;
+    Time=11:52:20 AM;
+    Modified=Yes;
+    Version List=Jason.Down.Blog;
+  }
+  PROPERTIES
+  {
+  }
+  FIELDS
+  {
+    { 1   ;   ;No.                 ;Code20         }
+    { 5   ;   ;Location            ;Text250        }
+  }
+  KEYS
+  {
+    {    ;No.                                     ;Clustered=Yes }
+  }
+  FIELDGROUPS
+  {
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

@@ -1,0 +1,47 @@
+OBJECT Codeunit 50000 Dot Net Generic Factory
+{
+  OBJECT-PROPERTIES
+  {
+    Date=08/04/15;
+    Time=11:22:01 PM;
+    Modified=Yes;
+    Version List=Jason.Down.Blog;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      ArrayOfTypes@1000000000 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.Array";
+      Activator@1000000001 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.Activator";
+
+    PROCEDURE CreateGenericInstance1@1000000000(VAR Instance@1000000000 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.Object";Type@1000000001 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.Type");
+    BEGIN
+      ArrayOfTypes := ArrayOfTypes.CreateInstance(GETDOTNETTYPE(Type),1);
+      ArrayOfTypes.SetValue(Type,0);
+      CreateInstanceInternal(Instance);
+    END;
+
+    PROCEDURE CreateInstanceInternal@1000000001(VAR Instance@1000000000 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.Object");
+    VAR
+      GenericType@1000000001 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.Type";
+      TypeOfInstance@1000000002 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.Type";
+    BEGIN
+      GenericType := GETDOTNETTYPE(Instance);
+      TypeOfInstance := GenericType.MakeGenericType(ArrayOfTypes);
+      Instance := Activator.CreateInstance(TypeOfInstance);
+    END;
+
+    BEGIN
+    {
+      Based off of Vjekoslav Babic's blog here: http://vjeko.com/blog/generics-in-net-interop-for-nav-2013
+      This code may have even been based off of one of Vjeko's NAV Tech Days presentations (can't remember to be honest).
+    }
+    END.
+  }
+}
+

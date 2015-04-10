@@ -21,22 +21,20 @@ namespace TestMultiImageAddin
             var repo = new NavQueryObjectImageRepository("1010024");
             var images = new List<Image>();
 
+            var paths = new List<string>
+            {
+                @"pack://application:,,,/TestImages/10100241.jpg",
+                @"pack://application:,,,/TestImages/10100242.jpg",
+                @"pack://application:,,,/TestImages/10100243.jpg",
+                @"pack://application:,,,/TestImages/10100244.jpg"
+            };
 
-            var image1 = new Image();
-            image1.SetValue(Image.SourceProperty, converter.ConvertFromString(@"pack://application:,,,/TestImages/10100241.jpg"));
-            images.Add(image1);
-
-            var image2 = new Image();
-            image2.SetValue(Image.SourceProperty, converter.ConvertFromString(@"pack://application:,,,/TestImages/10100242.jpg"));
-            images.Add(image2);
-
-            var image3 = new Image();
-            image3.SetValue(Image.SourceProperty, converter.ConvertFromString(@"pack://application:,,,/TestImages/10100243.jpg"));
-            images.Add(image3);
-
-            var image4 = new Image();
-            image4.SetValue(Image.SourceProperty, converter.ConvertFromString(@"pack://application:,,,/TestImages/10100244.jpg"));
-            images.Add(image4);
+            foreach (var path in paths)
+            {
+                var image = new Image();
+                image.SetValue(Image.SourceProperty, converter.ConvertFromString(path));
+                images.Add(image);
+            }
 
             repo.SetImages(images);
             vm.SetImageRepository(repo);

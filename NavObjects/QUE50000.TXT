@@ -1,0 +1,45 @@
+OBJECT Query 50000 Item Image Query
+{
+  OBJECT-PROPERTIES
+  {
+    Date=09/04/15;
+    Time=12:58:25 PM;
+    Modified=Yes;
+    Version List=Jason.Down.Blog;
+  }
+  PROPERTIES
+  {
+  }
+  ELEMENTS
+  {
+    { 1000000000;;DataItem;                  ;
+               DataItemTable=Table50001 }
+
+    { 1000000001;1;Column;                   ;
+               DataSource=Item No. }
+
+    { 1000000002;1;Column;                   ;
+               DataSource=Image No. }
+
+    { 1000000003;1;Column;                   ;
+               DataSource=Sequence }
+
+    { 1000000004;1;DataItem;                 ;
+               DataItemTable=Table50000;
+               DataItemLink=No.=Item_Image."Image No." }
+
+    { 1000000005;2;Column;                   ;
+               DataSource=No. }
+
+    { 1000000006;2;Column;                   ;
+               DataSource=Location }
+
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

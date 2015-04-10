@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using System.Windows.Media;
 using Jason.Down.Blog.MutliImageAddinDemo.Model;
 using Jason.Down.Blog.MutliImageAddinDemo.View;
 using Jason.Down.Blog.MutliImageAddinDemo.ViewModel;
@@ -16,6 +18,7 @@ namespace Jason.Down.Blog.MutliImageAddinDemo.Controls
     [ControlAddInExport("Jason.Down.Blog.MultiImageAddinDemo.Controls.MultiImageAddinHostControl")]
     public class MultiImageAddinHostControl : WinFormsControlAddInBase
     {
+        private Panel _panel;
         private ElementHost _host;
         private MultiImageView _view;
         private PageableImageControlViewModel _vm;
@@ -27,24 +30,45 @@ namespace Jason.Down.Blog.MutliImageAddinDemo.Controls
         /// <returns>Returns the Windows Forms control.</returns>
         protected override Control CreateControl()
         {
-            _vm = new PageableImageControlViewModel()
+            _panel = new Panel
+            {
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            _host = new ElementHost
+            {
+                Dock = DockStyle.Fill
+            };
+
+            _panel.Controls.Add(_host);
+
+            _vm = new PageableImageControlViewModel
             {
                 PageSize = 3
             };
 
-            _view = new MultiImageView()
+            _view = new MultiImageView
             {
                 DataContext = _vm
             };
+            _view.InitializeComponent();
 
-            _host = new ElementHost()
-            {
-                Dock = DockStyle.Top,
-                Child = _view,
-                Size = new Size((int) _view.Width, (int) _view.Height)
-            };
+            _host.Child = _view;
+            _host.Size = new Size((int) _view.MinWidth, (int) _view.MinHeight);
+            _panel.Size = new Size((int) _view.MinWidth + 5, (int) _view.MinHeight + 5);
 
-            return _host;
+            return _panel;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether to allow caption for the control.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if caption for control is allowed; otherwise, <c>false</c>.
+        /// </value>
+        public override bool AllowCaptionControl
+        {
+            get { return false; }
         }
 
         /// <summary>
@@ -78,6 +102,25 @@ namespace Jason.Down.Blog.MutliImageAddinDemo.Controls
         private void OnRequestItemImages(object sender, ImageRequestEventArgs e)
         {
             RequestImages(new object(), e);
+        }
+
+        /// <summary>
+        /// Sets the image paths.
+        /// </summary>
+        /// <param name="imagePaths">The image paths.</param>
+        [ApplicationVisible]
+        public void SetImagePaths(IEnumerable<string> imagePaths)
+        {
+            var images = new List<System.Windows.Controls.Image>();
+            var converter = new ImageSourceConverter();
+
+            foreach (var path in imagePaths)
+            {
+                var img = new System.Windows.Controls.Image();
+                img.SetValue(System.Windows.Controls.Image.SourceProperty, converter.ConvertFromString(path));
+                images.Add(img);
+            }
+            _imageRepository.SetImages(images);
         }
     }
 }

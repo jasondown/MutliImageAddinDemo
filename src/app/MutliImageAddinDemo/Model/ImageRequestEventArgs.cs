@@ -5,6 +5,7 @@ namespace Jason.Down.Blog.MutliImageAddinDemo.Model
     /// <summary>
     /// This class represents details for requested item images.
     /// </summary>
+    [Serializable]
     public class ImageRequestEventArgs : EventArgs
     {
         private readonly string _itemNumber;

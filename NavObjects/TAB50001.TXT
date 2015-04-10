@@ -1,0 +1,33 @@
+OBJECT Table 50001 Item Image
+{
+  OBJECT-PROPERTIES
+  {
+    Date=09/04/15;
+    Time=[ 4:55:18 PM];
+    Modified=Yes;
+    Version List=Jason.Down.Blog;
+  }
+  PROPERTIES
+  {
+  }
+  FIELDS
+  {
+    { 1   ;   ;Item No.            ;Code20         }
+    { 5   ;   ;Image No.           ;Code20         }
+    { 10  ;   ;Sequence            ;Integer        }
+  }
+  KEYS
+  {
+    {    ;Item No.,Image No.,Sequence             ;Clustered=Yes }
+  }
+  FIELDGROUPS
+  {
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

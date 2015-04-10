@@ -2,14 +2,23 @@ OBJECT Page 50000 MultiImage Factbox
 {
   OBJECT-PROPERTIES
   {
-    Date=26/03/15;
-    Time=[ 1:04:44 AM];
+    Date=09/04/15;
+    Time=[ 3:07:52 PM];
     Modified=Yes;
     Version List=Jason.Down.Blog;
   }
   PROPERTIES
   {
+    SourceTable=Table27;
     PageType=CardPart;
+    OnInit=BEGIN
+             BasePath := 'C:/Program Files (x86)/Microsoft Dynamics NAV/71/RoleTailored Client/Add-ins/Jason.Down.Blog/Images/';
+           END;
+
+    OnAfterGetRecord=BEGIN
+                       SetImageRepository;
+                     END;
+
   }
   CONTROLS
   {
@@ -24,9 +33,49 @@ OBJECT Page 50000 MultiImage Factbox
   }
   CODE
   {
+    VAR
+      CurrentItemNo@1000000000 : Code[20];
+      ImageRepository@1000000001 : DotNet "'Jason.Down.Blog.MutliImageAddinDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cfeb9f2c0b3be8fb'.Jason.Down.Blog.MutliImageAddinDemo.Model.NavQueryObjectImageRepository";
+      BasePath@1000000002 : Text;
 
-    EVENT MultiImageControl@-1000000001::RequestImages@1(sender@1000000001 : Variant;e@1000000000 : DotNet "'Jason.Down.Blog.MutliImageAddinDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cfeb9f2c0b3be8fb'.Jason.Down.Blog.MutliImageAddinDemo.Model.ImageRequestEventArgs");
+    PROCEDURE SetImageRepository@1000000001();
     BEGIN
+      IF CurrentItemNo = "No." THEN
+        EXIT;
+
+      IF "No." <> '' THEN BEGIN
+        CurrentItemNo := "No.";
+        ImageRepository := ImageRepository.NavQueryObjectImageRepository("No.");
+        CurrPage.MultiImageControl.SetImageRepository(ImageRepository);
+      END;
+    END;
+
+    PROCEDURE OnRequestImages@1000000000(e@1000000000 : DotNet "'Jason.Down.Blog.MutliImageAddinDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cfeb9f2c0b3be8fb'.Jason.Down.Blog.MutliImageAddinDemo.Model.ImageRequestEventArgs");
+    VAR
+      StringType@1000000005 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.String";
+      ImagePathList@1000000004 : DotNet "'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.System.Collections.Generic.List`1";
+      GenericFactory@1000000006 : Codeunit 50000;
+      ItemImageQuery@1000000001 : Query 50000;
+    BEGIN
+      GenericFactory.CreateGenericInstance1(ImagePathList, GETDOTNETTYPE(StringType));
+      ItemImageQuery.SETFILTER(ItemImageQuery.Item_No, e.ItemNumber);
+      ItemImageQuery.OPEN;
+      WHILE ItemImageQuery.READ DO BEGIN
+        ImagePathList.Add(BasePath + ItemImageQuery.Location);
+      END;
+      ItemImageQuery.CLOSE;
+
+      CurrPage.MultiImageControl.SetImagePaths(ImagePathList);
+      CurrPage.UPDATE;
+    END;
+
+    EVENT ImageRepository@1000000001::RequestItemImages@9(sender@1000000001 : Variant;e@1000000000 : DotNet "'Jason.Down.Blog.MutliImageAddinDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cfeb9f2c0b3be8fb'.Jason.Down.Blog.MutliImageAddinDemo.Model.ImageRequestEventArgs");
+    BEGIN
+    END;
+
+    EVENT MultiImageControl@-1000000001::RequestImages@2(sender@1000000001 : Variant;e@1000000000 : DotNet "'Jason.Down.Blog.MutliImageAddinDemo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cfeb9f2c0b3be8fb'.Jason.Down.Blog.MutliImageAddinDemo.Model.ImageRequestEventArgs");
+    BEGIN
+      OnRequestImages(e);
     END;
 
     BEGIN

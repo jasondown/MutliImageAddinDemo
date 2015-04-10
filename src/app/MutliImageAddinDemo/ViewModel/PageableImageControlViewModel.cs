@@ -117,6 +117,7 @@ namespace Jason.Down.Blog.MutliImageAddinDemo.ViewModel
             CurrentPage = 0;
             PageableImages.Reset(GetImages());
             OnPropertyChanged("PageableImages");
+            CommandManager.InvalidateRequerySuggested();
         }
 
         private int _pageSize;
